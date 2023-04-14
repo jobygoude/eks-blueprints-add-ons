@@ -15,7 +15,7 @@ spec:
     helm:
       values: |
         aws-privateca-issuer:
-        {{- toYaml .Values.awsPrivatecaIssuer | nindent 8 }}
+        {{- toYaml .Values.awsPrivatecaIssuer | nindent 10 }}
       parameters:
       - name: aws-privateca-issuer.serviceAccount.create
         value: {{ .Values.awsPrivatecaIssuer.serviceAccount.create }}

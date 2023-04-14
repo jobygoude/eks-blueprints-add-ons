@@ -1,0 +1,6 @@
+# for details on all options
+# https://github.com/cert-manager/aws-privateca-issuer/blob/main/charts/aws-pca-issuer/values.yaml
+aws-privateca-issuer:
+  serviceAccount:
+    create: false
+    name: aws-privateca-issuer-sa

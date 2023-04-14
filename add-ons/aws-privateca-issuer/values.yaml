@@ -3,4 +3,3 @@
 aws-privateca-issuer:
   serviceAccount:
     create: false
-    name: aws-privateca-issuer-sa

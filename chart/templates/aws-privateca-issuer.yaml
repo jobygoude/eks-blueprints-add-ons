@@ -17,10 +17,8 @@ spec:
         aws-privateca-issuer:
         {{- toYaml .Values.awsPrivatecaIssuer | nindent 10 }}
       parameters:
-      - name: aws-privateca-issuer.serviceAccount.create
-        value: {{ .Values.awsPrivatecaIssuer.serviceAccount.create }}
       - name: aws-privateca-issuer.serviceAccount.name
-        value: {{ .Values.awsPrivatecaIssuer.serviceAccount.name }}
+        value: {{ .Values.awsPrivatecaIssuer.serviceAccountName }}
   destination:
     server: {{ .Values.destinationServer | default "https://kubernetes.default.svc" }}
     namespace: aws-privateca-issuer

@@ -1,0 +1,38 @@
+{{- if ((.Values.awsPrivatecaIssuer).enable) }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-privateca-issuer
+  namespace: {{ .Values.argoNamespace | default "argocd" }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.argoProject | default "default" }}
+  source:
+    repoURL: {{ required "repoUrl value is required" .Values.repoUrl }}
+    path: add-ons/aws-privateca-issuer
+    targetRevision: {{ .Values.targetRevision }}
+    helm:
+      values: |
+        aws-privateca-issuer:
+        {{- toYaml .Values.awsPrivatecaIssuer | nindent 8 }}
+      parameters:
+      - name: aws-privateca-issuer.serviceAccount.create
+        value: {{ .Values.awsPrivatecaIssuer.serviceAccount.create }}
+      - name: aws-privateca-issuer.serviceAccount.name
+        value: {{ .Values.awsPrivatecaIssuer.serviceAccount.name }}
+  destination:
+    server: {{ .Values.destinationServer | default "https://kubernetes.default.svc" }}
+    namespace: aws-privateca-issuer
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace={{ .Values.awsPrivatecaIssuer.createNamespace }}
+    retry:
+      limit: 1
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 1m
+  {{- end -}}

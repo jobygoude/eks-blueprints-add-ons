@@ -77,6 +77,9 @@ awsOtelCollector:
 # AWS Private CA Issuer
 awsPrivatecaIssuer:
   enabled: false
+  serviceAccount:
+    create: false
+    name: aws-privateca-issuer-sa
 
 # Cert Manager Values
 certManager:
